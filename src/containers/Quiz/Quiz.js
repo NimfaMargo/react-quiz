@@ -4,8 +4,10 @@ import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz.js'
 
 class Quiz extends Component {
     state = {
+        activeQuestion: 0,
         quiz: [
-            {
+            {   
+                id: 1,
                 question: 'Какое О большое у линейного поиска?',
                 rightAnswerId: 3, 
                 answers: [
@@ -14,12 +16,24 @@ class Quiz extends Component {
                     { id: 3, text: 'О(n)' },
                     { id: 4, text: 'O(n^2)'},
                 ],
+            },
+            {
+                id: 2,
+                question: 'Какой алгоритм сортировки наиболее эффективен при больших n?',
+                rightAnswerId: 1,
+                answers: [
+                    { id: 1, text: 'Сортировка слиянием' },
+                    { id: 2, text: 'Быстрая сортировка' },
+                    { id: 3, text: 'Сортировка пузырьком' },
+                    { id: 4, text: 'Сортировка вставками' },
+                ],
             }
         ]
     }
 
     clickHandler = (id) => {
         console.log('Answer Id:', id);
+        this.setState({activeQuestion: this.state.activeQuestion + 1 })
     }
     
     render() {
@@ -29,9 +43,11 @@ class Quiz extends Component {
                 <div className={classes.QuizWrapper}>
                     <h1>Ответь на вопросы</h1>
                     <ActiveQuiz 
-                        question={this.state.quiz[0].question}
-                        answers={this.state.quiz[0].answers}
+                        question={this.state.quiz[this.state.activeQuestion].question}
+                        answers={this.state.quiz[this.state.activeQuestion].answers}
                         onAnswerClick={this.clickHandler}
+                        quizLength={this.state.quiz.length}
+                        answerNumber={this.state.activeQuestion + 1}
                     />
                 </div>
             </div>
