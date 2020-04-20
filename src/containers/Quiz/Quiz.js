@@ -5,14 +5,21 @@ import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz.js'
 class Quiz extends Component {
     state = {
         quiz: [
-            { answers: [
-                { text: 'Вопрос 1' },
-                { text: 'Вопрос 2' },
-                { text: 'Вопрос 3' },
-                { text: 'Вопрос 4' },
-            ]},
-            {}
+            {
+                question: 'Какое О большое у линейного поиска?',
+                rightAnswerId: 3, 
+                answers: [
+                    { id: 1, text: 'O(1)' },
+                    { id: 2, text: 'О(2n)'},
+                    { id: 3, text: 'О(n)' },
+                    { id: 4, text: 'O(n^2)'},
+                ],
+            }
         ]
+    }
+
+    clickHandler = (id) => {
+        console.log('Answer Id:', id);
     }
     
     render() {
@@ -20,8 +27,12 @@ class Quiz extends Component {
             <div className={classes.Quiz}>
                 
                 <div className={classes.QuizWrapper}>
-                    <h1>Quiz</h1>
-                    <ActiveQuiz answers={this.state.quiz[0].answers}/>
+                    <h1>Ответь на вопросы</h1>
+                    <ActiveQuiz 
+                        question={this.state.quiz[0].question}
+                        answers={this.state.quiz[0].answers}
+                        onAnswerClick={this.clickHandler}
+                    />
                 </div>
             </div>
         );
