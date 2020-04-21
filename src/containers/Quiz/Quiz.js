@@ -33,7 +33,15 @@ class Quiz extends Component {
     }
 
     clickHandler = (id) => {
-        const question = this.state.quiz[this.state.activeQuestion]
+        const {quiz, activeQuestion, answerState } = this.state;
+        if(answerState) {
+            const key = Object.keys(answerState)[0];
+            if(answerState[key] === 'success') {
+                return;
+            }
+        }
+        const question = quiz[activeQuestion];
+
         if (question.rightAnswerId === id) {
             this.setState({ 
                 answerState: {[id]: 'success' }
@@ -42,7 +50,7 @@ class Quiz extends Component {
                 if(this.isQuizFinished()) {
                     console.log('finish');
                 } else {
-                    this.setState({ activeQuestion: this.state.activeQuestion + 1 });
+                    this.setState({ activeQuestion: activeQuestion + 1 });
                     this.setState({ answerState: null });
                 }
                 window.clearTimeout(timeout);
