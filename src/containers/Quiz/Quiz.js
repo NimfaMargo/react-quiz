@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import classes from './Quiz.module.css'
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz.js'
+import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz.js'
 
 class Quiz extends Component {
     state = {
+        isFinished: true,
         activeQuestion: 0,
         answerState: null,  
         quiz: [
@@ -48,7 +50,7 @@ class Quiz extends Component {
             });
             const timeout = window.setTimeout(()=> {
                 if(this.isQuizFinished()) {
-                    console.log('finish');
+                    this.setState({ isFinished: true });
                 } else {
                     this.setState({ activeQuestion: activeQuestion + 1 });
                     this.setState({ answerState: null });
@@ -65,20 +67,25 @@ class Quiz extends Component {
     isQuizFinished = () => this.state.activeQuestion + 1 === this.state.quiz.length;
 
     render() {
-        const { quiz, activeQuestion, answerState } = this.state;
+        const { quiz, activeQuestion, answerState, isFinished } = this.state;
         return (
             <div className={classes.Quiz}>
                 
+
+                
                 <div className={classes.QuizWrapper}>
                     <h1>Ответь на вопросы</h1>
-                    <ActiveQuiz 
-                        question={quiz[activeQuestion].question}
-                        answers={quiz[activeQuestion].answers}
-                        onAnswerClick={this.clickHandler}
-                        quizLength={quiz.length}
-                        answerNumber={activeQuestion + 1}
-                        state={answerState}
-                    />
+                    {isFinished 
+                        ? <FinishedQuiz />
+                        : <ActiveQuiz 
+                            question={quiz[activeQuestion].question}
+                            answers={quiz[activeQuestion].answers}
+                            onAnswerClick={this.clickHandler}
+                            quizLength={quiz.length}
+                            answerNumber={activeQuestion + 1}
+                            state={answerState}
+                        />
+                    }
                 </div>
             </div>
         );
