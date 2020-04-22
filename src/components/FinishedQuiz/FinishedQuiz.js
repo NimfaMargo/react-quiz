@@ -7,11 +7,13 @@ const FinishedList = (props) => {
            <ul>
                <li>
                    <strong>1. </strong>
-                   Text
+                   gg
+                   <i className={'fa fa-times ' + classes.error} />
                </li>
                 <li>
                     <strong>2. </strong>
-                    Text
+                    bb  
+                    <i className={'fa fa-check ' + classes.success} />
                 </li>
            </ul>
 
