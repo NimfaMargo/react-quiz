@@ -5,7 +5,8 @@ import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz.js'
 
 class Quiz extends Component {
     state = {
-        isFinished: true,
+        results: {}, // {[id]: 'success' / 'error'}
+        isFinished: false,
         activeQuestion: 0,
         answerState: null,  
         quiz: [
@@ -35,7 +36,7 @@ class Quiz extends Component {
     }
 
     clickHandler = (id) => {
-        const {quiz, activeQuestion, answerState } = this.state;
+        const {quiz, activeQuestion, answerState, results } = this.state;
         if(answerState) {
             const key = Object.keys(answerState)[0];
             if(answerState[key] === 'success') {
@@ -45,8 +46,12 @@ class Quiz extends Component {
         const question = quiz[activeQuestion];
 
         if (question.rightAnswerId === id) {
-            this.setState({ 
-                answerState: {[id]: 'success' }
+            if(!results[id]){
+                results[id] = "success";
+            }
+            this.setState({
+                answerState: { [id]: "success" },
+                results,
             });
             const timeout = window.setTimeout(()=> {
                 if(this.isQuizFinished()) {
@@ -58,8 +63,10 @@ class Quiz extends Component {
                 window.clearTimeout(timeout);
             }, 1000)
         } else {
+            results[id] = 'error'
             this.setState({ 
-                answerState: { [id]: 'error' } 
+                answerState: { [id]: 'error' },
+                results
             });
         }
     }
@@ -67,16 +74,16 @@ class Quiz extends Component {
     isQuizFinished = () => this.state.activeQuestion + 1 === this.state.quiz.length;
 
     render() {
-        const { quiz, activeQuestion, answerState, isFinished } = this.state;
+        const { quiz, activeQuestion, answerState, isFinished, results } = this.state;
         return (
             <div className={classes.Quiz}>
-                
-
-                
                 <div className={classes.QuizWrapper}>
                     <h1>Ответь на вопросы</h1>
                     {isFinished 
-                        ? <FinishedQuiz />
+                        ? <FinishedQuiz 
+                            results={results}
+                            quiz={quiz}
+                        />
                         : <ActiveQuiz 
                             question={quiz[activeQuestion].question}
                             answers={quiz[activeQuestion].answers}
