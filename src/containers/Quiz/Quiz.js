@@ -70,10 +70,8 @@ class Quiz extends Component {
             });
         }
     }
-    
-    onRetryHandler = () => {
 
-    }
+    onRetryHandler = () => {}
     
     isQuizFinished = () => this.state.activeQuestion + 1 === this.state.quiz.length;
 
