@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './FinishedQuiz.module.css';
 
 const FinishedList = (props) => {
-    const { quiz, results } = props;
+    const { quiz, results, onRetry } = props;
     console.log(quiz, results);
     
     return(
@@ -25,7 +25,9 @@ const FinishedList = (props) => {
            </ul>
            <p>Правильно 4 из 10</p>
            <div>
-               <button>Повторить</button>
+               <button
+                onClick={onRetry}
+               >Повторить</button>
            </div>
         </div>
     )
