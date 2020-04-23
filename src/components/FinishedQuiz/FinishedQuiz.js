@@ -17,7 +17,7 @@ const FinishedList = (props) => {
                    return (
                      <li key={index}>
                        <strong>{index + 1}</strong>&nbsp;
-                       {quizItem}
+                       {quizItem.question}
                        <i className={cls.join(' ')} />
                      </li>
                    );
