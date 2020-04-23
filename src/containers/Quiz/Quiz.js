@@ -46,8 +46,8 @@ class Quiz extends Component {
         const question = quiz[activeQuestion];
 
         if (question.rightAnswerId === id) {
-            if(!results[id]){
-                results[id] = "success";
+            if (!results[question.id]) {
+              results[question.id] = "success";
             }
             this.setState({
                 answerState: { [id]: "success" },
@@ -63,7 +63,7 @@ class Quiz extends Component {
                 window.clearTimeout(timeout);
             }, 1000)
         } else {
-            results[id] = 'error'
+            results[question.id] = "error";
             this.setState({ 
                 answerState: { [id]: 'error' },
                 results
