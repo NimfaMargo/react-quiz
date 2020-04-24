@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './FinishedQuiz.module.css';
-
+import Button from '../UI/Button/Button'
 const FinishedList = (props) => {
     const { quiz, results, onRetry } = props;
     console.log(quiz, results);
@@ -25,9 +25,12 @@ const FinishedList = (props) => {
            </ul>
            <p>Правильно 4 из 10</p>
            <div>
-               <button
-                onClick={onRetry}
-               >Повторить</button>
+               <Button type='primary' onClick={onRetry}>
+                   Повторить
+               </Button>
+               <Button type='success'>
+                   Перейти в список тестов
+               </Button>
            </div>
         </div>
     )
