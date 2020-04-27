@@ -3,8 +3,7 @@ import classes from './FinishedQuiz.module.css';
 import Button from '../UI/Button/Button'
 const FinishedList = (props) => {
     const { quiz, results, onRetry } = props;
-    console.log(quiz, results);
-    
+
     return(
         <div className={classes.FinishedQuiz}>
            <ul>
