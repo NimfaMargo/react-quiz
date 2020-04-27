@@ -23,7 +23,7 @@ const FinishedList = (props) => {
                    );
                })}  
            </ul>
-           <p>Правильно 4 из 10</p>
+           {/* <p>Правильно 4 из 10</p> */}
            <div>
                <Button type='primary' onClick={onRetry}>
                    Повторить
