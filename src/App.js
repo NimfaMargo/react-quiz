@@ -1,12 +1,14 @@
 import React from 'react';  
 import Layout from './hoc/Layout/Layout'
 import Quiz from './containers/Quiz/Quiz.js'
-
+import { BrowserRouter } from 'react-router-dom'
 function App() {
   return (
-    <Layout>
-      <Quiz />
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Quiz />
+      </Layout>
+    </BrowserRouter>
   );
 }
 
