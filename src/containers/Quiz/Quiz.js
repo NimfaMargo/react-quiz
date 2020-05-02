@@ -5,14 +5,14 @@ import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz.js'
 
 class Quiz extends Component {
     state = {
-        results: {}, // {[id]: 'success' / 'error'}
+        results: {}, // {[id]: 'success' / 'error', ... }
         isFinished: false,
         activeQuestion: 0,
-        answerState: null,  
+        answerState: null,  // {[id]: 'success' / 'error'}
         quiz: [
             {   
                 id: 1,
-                question: 'Кем был персонаж по имени Бегомот в романе Мастер и Маргарита?',
+                question: 'Кем был персонаж по имени Бегемот в романе Мастер и Маргарита?',
                 rightAnswerId: 3, 
                 answers: [
                     { id: 1, text: 'Бегемотом' },
