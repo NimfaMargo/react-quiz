@@ -4,6 +4,10 @@ import Button from '../UI/Button/Button'
 const FinishedList = (props) => {
     const { quiz, results, onRetry } = props;
 
+    const numberOfRightResults = Object.values(results).reduce((acc, value) => {
+        return value === 'success' ? acc + 1 : acc;
+    }, 0);
+    
     return(
         <div className={classes.FinishedQuiz}>
            <ul>
@@ -22,7 +26,7 @@ const FinishedList = (props) => {
                    );
                })}  
            </ul>
-           {/* <p>Правильно 4 из 10</p> */}
+            <p>{`Правильно ${numberOfRightResults} из ${quiz.length}`}</p>
            <div>
                <Button type='primary' onClick={onRetry}>
                    Повторить
