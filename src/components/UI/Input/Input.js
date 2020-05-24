@@ -1,10 +1,17 @@
 import React  from 'react';
 import classes from './Input.module.css';
 
+const isInvalid = ({ valid, touched, shouldVaidate }) => {
+	return !valid && shouldVaidate && touched;
+}
+
 const Input = (props) => {
 	const inputType = props.type || 'text';
 	const cls = [classes.Input];
 	const htmlFor = `${inputType}-${Math.random()}`;
+	if (isInvalid(props)) {
+		cls.push(classes.invalid)
+	}
 
 	return (
 		<div className={cls.join(' ')}>
@@ -16,6 +23,7 @@ const Input = (props) => {
 				onChange={props.onChange}
 			>
 			</input>
+			{isInvalid(props) && <span>{props.errorMessage || 'Введите верное значение'}</span>}
 		</div>
 	);
 }

@@ -4,6 +4,7 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 
 class Auth extends Component {
+
 	registerHandler = () => {};
 	loginHandler = () => {};
 	submitHandler = (e) => {
@@ -15,8 +16,8 @@ class Auth extends Component {
 				<div>
 					<h1>Авторизация</h1>
 					<form className={classes.AuthForm} onSubmit={this.submitHandler}>
-						<Input label='Email' type='text'/>
-						<Input label='Пароль' type='text'/>
+						<Input label='Email' />
+						<Input label='Пароль' errorMessage={'TEST'} />
 						<Button 
 							type='success'
 							onClick={this.loginHandler}
