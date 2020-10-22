@@ -1,53 +1,41 @@
-import React, { Component } from "react";
-import classes from "./Drawer.module.css";
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import cn from 'classnames';
+import classes from './Drawer.module.css';
 import BackDrop from '../../UI/BackDrop/BackDrop';
 
 const links = [
-    { to: '/', label: 'Список', exact: true },
-    { to: '/auth', label: 'Авторизация', exact: false },
-    { to: '/quiz-creator', label: 'Создать  тест', exact: false }
+  {
+    id: 1, to: '/', label: 'Список', exact: true,
+  },
+  {
+    id: 2, to: '/auth', label: 'Авторизация', exact: false,
+  },
+  {
+    id: 3, to: '/quiz-creator', label: 'Создать  тест', exact: false,
+  },
 ];
 
-class Drawer extends Component {
-    clickHandler = () => this.props.onClose();
-
-    rendeLinks() {
-        return links.map((link, index) => {
-            return (
-                <li key={index}>
-                    <NavLink
-                        to={link.to}
-                        exact={link.exact}
-                        activeClassName={classes.active}
-                        onClick={this.clickHandler}
-                    >
-                        {link.label}
-                    </NavLink>
-                </li>
-            );
-        })
-    }
-
-    render() {
-        const cls = [classes.Drawer];
-
-        if(!this.props.isOpen) {
-            cls.push(classes.close)
-        }
-        
-        return(
-            <>
-                <nav className={cls.join(' ')}>
-                    <ul>
-                        {this.rendeLinks()}
-                    </ul>
-                </nav>
-                {this.props.isOpen && <BackDrop onClick={this.props.onClose} />}
-            </>
-        );
-    }
-  
-};
+export const Drawer = ({ isOpen, onClose }) => (
+  <>
+    <nav className={cn({ [classes.Drawer]: true, [!isOpen]: classes.close })}>
+      <ul>
+        {links.map((link) => (
+          <li key={link.id}>
+            <NavLink
+              to={link.to}
+              exact={link.exact}
+              activeClassName={classes.active}
+              onClick={() => onClose()}
+            >
+              {link.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    {isOpen && <BackDrop onClick={() => onClose()} />}
+  </>
+);
 
 export default Drawer;
