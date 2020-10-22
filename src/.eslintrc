@@ -1,0 +1,37 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "extends": [
+        "airbnb"
+    ],
+    "plugins": [
+        "babel"
+    ],
+    "env": {
+        "serviceworker": true,
+        "browser": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "arrow-body-style": ["error", "as-needed"],
+        "import/no-extraneous-dependencies": 0,
+        "no-underscore-dangle": 0,
+        "react/prop-types": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/no-danger": 0,
+        "no-console": 0,
+        "camelcase": 0,
+        "no-unused-expressions": 0,
+        "no-shadow": 0,
+        "no-use-before-define": 0,
+        "react/jsx-filename-extension": 0,
+        "jsx-filename-extension": 0
+    }
+}
