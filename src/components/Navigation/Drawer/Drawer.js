@@ -18,7 +18,7 @@ const links = [
 
 export const Drawer = ({ isOpen, onClose }) => (
   <>
-    <nav className={cn({ [classes.Drawer]: true, [!isOpen]: classes.close })}>
+    <nav className={cn({ [classes.Drawer]: true, [classes.close]: !isOpen })}>
       <ul>
         {links.map((link) => (
           <li key={link.id}>
