@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import classes from './Auth.module.css';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
-
-function validateEmail(email) {
-	const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return re.test(String(email).toLowerCase());
-}
+import is from "is_js";
 
 class Auth extends Component {
 	state = {
@@ -25,9 +21,9 @@ class Auth extends Component {
 			},
 			password: {
 				value: '',
-				type: 'pasword',
+				type: 'password',
 				label: 'Пароль',
-				errorMessage: 'Введите корректный пароль',
+				errorMessage: 'Пароль слишком короткий',
 				valid: false,
 				touched: false,
 				validation: {
@@ -52,16 +48,15 @@ class Auth extends Component {
 			isValid = value.trim() !== '' && isValid;
 		}
 		if (validation.email) {
-			isValid = validateEmail(value) && isValid;
+			isValid = is.email(value) && isValid;
 		}
 		if (validation.minLength) {
-			isValid = value.trim().length >= validation.length && isValid;
+			isValid = value.trim().length >= validation.minLength && isValid;
 		}
 		return isValid;
 	}
 
 	onChangeHandler = (e, controlName) => {
-		console.log(`${controlName}: `, e.target.value);
 		const formControls = { ...this.state.formControls };
 		const control = { ...formControls[controlName] };
 
