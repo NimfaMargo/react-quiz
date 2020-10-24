@@ -17,25 +17,25 @@ const links = [
 ];
 
 export const Drawer = ({ isOpen, onClose }) => (
-  <>
-    <nav className={cn({ [classes.Drawer]: true, [classes.close]: !isOpen })}>
-      <ul>
-        {links.map((link) => (
-          <li key={link.id}>
-            <NavLink
-              to={link.to}
-              exact={link.exact}
-              activeClassName={classes.active}
-              onClick={() => onClose()}
-            >
-              {link.label}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </nav>
-    {isOpen && <BackDrop onClick={() => onClose()} />}
-  </>
+	<>
+		<nav className={cn({ [classes.Drawer]: true, [classes.close]: !isOpen })}>
+			<ul>
+				{links.map((link) => (
+					<li key={link.id}>
+						<NavLink
+							to={link.to}
+							exact={link.exact}
+							activeClassName={classes.active}
+							onClick={() => onClose()}
+						>
+							{link.label}
+						</NavLink>
+					</li>
+				))}
+			</ul>
+		</nav>
+		{isOpen && <BackDrop onClick={() => onClose()} />}
+	</>
 );
 
 export default Drawer;
