@@ -2,13 +2,13 @@ import React from 'react';
 import classes from './AnswersList.module.css';
 import AnswerItem from './AnswerItem/AnswerItem';
 
-const AnswersList = (props) => (
+const AnswersList = ({ answers, state, onAnswerClick }) => (
   <ul className={classes.AnswersList}>
-    {props.answers.map((answer, index) => (
+    {answers.map((answer) => (
       <AnswerItem
-        state={props.state ? props.state[answer.id] : null}
-        onAnswerClick={props.onAnswerClick}
-        key={index}
+        state={state ? state[answer.id] : null}
+        onAnswerClick={onAnswerClick}
+        key={answer.id}
         answer={answer}
       />
     ))}
