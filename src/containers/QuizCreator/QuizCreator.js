@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import classes from './QuizCreator.module.css';
 import { Button } from '../../components/UI/Button/Button';
 import createControl from '../../form/formFramework';
+import Input from '../../components/UI/Input/Input';
 
 function createOptionControl(number) {
 	return createControl(
 		{
 			id: number,
-			label: `Введите вопрос ${number}`,
-			errorMessage: 'Вопрос не может быть пустым',
+			label: `Вариант ${number}`,
+			errorMessage: 'Вариант не может быть пустым',
 		},
 		{ required: true },
 	);
@@ -16,58 +17,67 @@ function createOptionControl(number) {
 
 function createFormControls() {
 	return {
-		quiz: [],
-		formControls: {
-			question: createControl({ label: 'Введите вопрос', errorMessage: 'Вопрос не может быть пустым' }, { required: true }),
-			option1: createOptionControl(1),
-			option2: createOptionControl(2),
-			option3: createOptionControl(3),
-			option4: createOptionControl(4),
-		},
-	}
+		question: createControl({ id: 0, label: 'Введите вопрос', errorMessage: 'Вопрос не может быть пустым' }, { required: true }),
+		option1: createOptionControl(1),
+		option2: createOptionControl(2),
+		option3: createOptionControl(3),
+		option4: createOptionControl(4),
+	};
 }
-class QuizCreator extends Component {
-	constructor(props) {
-		super(props);
-		this.state = createFormControls();
-	}
 
-	submitHandler = (e) => e.preventDefault();
+const QuizCreator = () => {
+	const [quiz, setQuiz] = useState([]);
+	const [formControls, setFormControls] = useState(createFormControls());
 
-	addQuestionHandler = () => { };
+	const submitHandler = (e) => e.preventDefault();
+	const addQuestionHandler = () => { };
+	const createQuizHandler = () => { };
 
-	createQuizHandler = () => { };
+	const changeHandler = (value, name) => { };
 
-	render() {
-		return (
-			<div className={classes.QuizCreator}>
-				<div>
-					<h1>Создание теста</h1>
-					<form onSubmit={this.submitHandler}>
-						<input type="text" />
-						<hr />
-						<input type="text" />
-						<input type="text" />
-						<input type="text" />
-						<input type="text" />
-						<Button
-							type="primary"
-							onClick={this.addQuestionHandler}
-						>
-							Добавить вопрос
-						</Button>
-						<Button
-							type="success"
-							onClick={this.createQuizHandler}
-						>
-							Создать тест
-						</Button>
-					</form>
-				</div>
+	const renderControls = () => Object.keys(formControls).map((controlName, index) => {
+			const control = formControls[controlName];
 
+			return (
+				<>
+					<Input
+						key={control.id}
+						label={control.label}
+						value={control.value}
+						valid={control.valid}
+						shouldValidate={!control.validation}
+						touched={control.touched}
+						errorMessage={control.errorMessage}
+						onChange={(e) => changeHandler(e.target.value, controlName)}
+					/>
+					{ index === 0 ? <hr /> : null}
+				</>
+			);
+		});
+
+	return (
+		<div className={classes.QuizCreator}>
+			<div>
+				<h1>Создание теста</h1>
+				<form onSubmit={submitHandler}>
+					{renderControls()}
+					<Button
+						type="primary"
+						onClick={addQuestionHandler}
+					>
+						Добавить вопрос
+					</Button>
+					<Button
+						type="success"
+						onClick={createQuizHandler}
+					>
+						Создать тест
+					</Button>
+				</form>
 			</div>
-		);
-	}
-}
+
+		</div>
+	);
+};
 
 export default QuizCreator;
