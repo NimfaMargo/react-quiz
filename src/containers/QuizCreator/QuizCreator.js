@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import classes from './QuizCreator.module.css';
 import { Button } from '../../components/UI/Button/Button';
 import createControl from '../../form/formFramework';
 import Input from '../../components/UI/Input/Input';
+import Select from '../../components/UI/Select/Select';
 
 function createOptionControl(number) {
 	return createControl(
@@ -28,20 +29,20 @@ function createFormControls() {
 const QuizCreator = () => {
 	const [quiz, setQuiz] = useState([]);
 	const [formControls, setFormControls] = useState(createFormControls());
-
+	const [rightAnswerId, setRightAnswerId] = useState(1);
 	const submitHandler = (e) => e.preventDefault();
 	const addQuestionHandler = () => { };
 	const createQuizHandler = () => { };
 
 	const changeHandler = (value, name) => { };
+	const selectChangeHandler = (e) => setRightAnswerId(e.target.value);
 
 	const renderControls = () => Object.keys(formControls).map((controlName, index) => {
 			const control = formControls[controlName];
 
 			return (
-				<>
+				<Fragment key={control.id}>
 					<Input
-						key={control.id}
 						label={control.label}
 						value={control.value}
 						valid={control.valid}
@@ -51,7 +52,7 @@ const QuizCreator = () => {
 						onChange={(e) => changeHandler(e.target.value, controlName)}
 					/>
 					{ index === 0 ? <hr /> : null}
-				</>
+				</Fragment>
 			);
 		});
 
@@ -61,6 +62,17 @@ const QuizCreator = () => {
 				<h1>Создание теста</h1>
 				<form onSubmit={submitHandler}>
 					{renderControls()}
+					<Select
+						label="Выберите правильный ответ"
+						value={rightAnswerId}
+						options={[
+							{ id: 0, text: 1, value: 1 },
+							{ id: 1, text: 2, value: 2 },
+							{ id: 2, text: 3, value: 3 },
+							{ id: 3, text: 4, value: 4 },
+						]}
+						onChange={selectChangeHandler}
+					/>
 					<Button
 						type="primary"
 						onClick={addQuestionHandler}
