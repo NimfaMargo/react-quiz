@@ -1,4 +1,4 @@
-export default function createControl(config, validation) {
+export function createControl(config, validation) {
 	return {
 		...config,
 		validation,
@@ -6,4 +6,19 @@ export default function createControl(config, validation) {
 		touched: false,
 		value: '',
 	};
+}
+
+export function validate(value, rules = null) {
+	if (!rules) {
+		return true;
+	}
+	let isValid = true;
+	if (rules.required) {
+		isValid = value.trim() !== '' && isValid;
+	}
+	return isValid;
+}
+
+export function validateForm(controls) {
+
 }

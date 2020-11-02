@@ -16,7 +16,7 @@ const links = [
   },
 ];
 
-export const Drawer = ({ isOpen, onClose }) => (
+const Drawer = ({ isOpen, onClose }) => (
 	<>
 		<nav className={cn({ [classes.Drawer]: true, [classes.close]: !isOpen })}>
 			<ul>

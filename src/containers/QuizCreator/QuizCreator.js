@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import classes from './QuizCreator.module.css';
 import { Button } from '../../components/UI/Button/Button';
-import createControl from '../../form/formFramework';
+import { createControl, validate } from '../../form/formFramework';
 import Input from '../../components/UI/Input/Input';
 import Select from '../../components/UI/Select/Select';
 
@@ -28,13 +28,24 @@ function createFormControls() {
 
 const QuizCreator = () => {
 	const [quiz, setQuiz] = useState([]);
+	const [isFormValid, setFormValid] = useState(false);
 	const [formControls, setFormControls] = useState(createFormControls());
 	const [rightAnswerId, setRightAnswerId] = useState(1);
 	const submitHandler = (e) => e.preventDefault();
 	const addQuestionHandler = () => { };
 	const createQuizHandler = () => { };
 
-	const changeHandler = (value, name) => { };
+	const changeHandler = (e, controlName) => {
+		e.preventDefault();
+		const control = { ...formControls[controlName] };
+		control.touched = true;
+		control.value = e.target.value;
+		control.valid = validate(control.value, control.validation);
+		console.log(control, 'change');
+		formControls[controlName] = control;
+		console.log(formControls, 'formControls');
+		setFormControls(formControls);
+	};
 	const selectChangeHandler = (e) => setRightAnswerId(e.target.value);
 
 	const renderControls = () => Object.keys(formControls).map((controlName, index) => {
@@ -49,7 +60,7 @@ const QuizCreator = () => {
 						shouldValidate={!control.validation}
 						touched={control.touched}
 						errorMessage={control.errorMessage}
-						onChange={(e) => changeHandler(e.target.value, controlName)}
+						onChange={(e) => changeHandler(e, controlName)}
 					/>
 					{ index === 0 ? <hr /> : null}
 				</Fragment>
